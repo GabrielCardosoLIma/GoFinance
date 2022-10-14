@@ -54,6 +54,13 @@ export const Icon = styled(Feather)`
   font-size: ${RFValue(24)}px;
 `;
 
-export const HighlightCards = styled.View`
+export const HighlightCards = styled.ScrollView.attrs({
+  horizontal:true,
+  showsHorizontalScrollIndicator: false,
+  contentContainerStyle: {paddingHorizontal: 24}
+})`
   flex-direction: row;
+  width: 100%;
+  position: absolute;
+  margin-top: ${RFPercentage(24)}px;
 `
