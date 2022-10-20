@@ -44,7 +44,7 @@ export function Dashboard() {
         icon: "dollar-sign",
       },
       amount: "- R$ 1.200,00",
-      date: "15/06/2020",
+      date: "18/06/2020",
     },
   ];
 
