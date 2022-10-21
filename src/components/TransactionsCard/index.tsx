@@ -12,6 +12,7 @@ import {
 } from "./Styles";
 
 export interface TransactionCardProps{
+  type: 'positive' | 'negative';
   title: String;
   amount: String;
   category: Category;
@@ -31,10 +32,13 @@ export function TransactionsCard({ data }: Props) {
   return (
     <Container>
       <Title>{data.title}</Title>
-      <Amount>{data.amount}</Amount>
+      <Amount type={data.type}>
+        {data.type === 'negative' && '- '}
+        {data.amount}
+      </Amount>
       <Footer>
         <Category>
-          <Icon name="dollar-sign"></Icon>
+          <Icon name={data.category.icon}></Icon>
           <CategoryName>{data.category.name}</CategoryName>
         </Category>
         <Date>{data.date}</Date>

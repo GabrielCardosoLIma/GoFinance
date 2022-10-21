@@ -9,6 +9,7 @@ import {
   Poppins_500Medium,
   Poppins_700Bold
 } from '@expo-google-fonts/poppins';
+import { Register } from './src/screens/Register';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,7 +26,7 @@ SplashScreen.hideAsync();
 
   return (
     <ThemeProvider theme={theme}>
-      <Dashboard />
+      <Register />
     </ThemeProvider>
   );
 }
