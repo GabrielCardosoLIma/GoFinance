@@ -3,13 +3,14 @@ import { ThemeProvider } from 'styled-components/native';
 import * as SplashScreen from 'expo-splash-screen';
 import theme from './src/global/Styles/theme';
 import { Dashboard } from './src/screens/Dashboard';
+import { Register } from './src/screens/Register';
+import { CategorySelect } from './src/screens/CategorySelect';
 import {
   useFonts,
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_700Bold
 } from '@expo-google-fonts/poppins';
-import { Register } from './src/screens/Register';
 
 SplashScreen.preventAutoHideAsync();
 

@@ -15,24 +15,37 @@ export const Header = styled.View`
   align-items: center;
   padding-bottom: 19px;
 `;
+
 export const Title = styled.Text`
   font-size: ${RFValue(18)}px;
   color: ${({ theme }) => theme.colors.shape};
   font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
-export const Form = styled.View`
-  flex: 1;
+export const Footer = styled.View`
   width: 100%;
   padding: 24px;
-  justify-content: space-between;
 `;
 
-export const Fields = styled.View``;
-
-export const TransactionTypes = styled.View`
+export const Category = styled.View`
+  width: 100%;
   flex-direction: row;
-  justify-content: space-between;
-  margin-top: 8px;
-  margin-bottom: 16px;
+  align-items: center;
+  padding: ${RFValue(15)}px;
+`;
+
+export const Name = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(14)}px;
+`;
+
+export const Separator = styled.View`
+  height: 1px;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.text};
+`;
+
+export const Icon = styled(Feather)`
+  font-size: ${RFValue(20)}px;
+  margin-right: 16px;
 `;

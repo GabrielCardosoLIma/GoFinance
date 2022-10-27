@@ -46,16 +46,7 @@ export const Title = styled.Text`
 
 export const Icon = styled(Feather)<IconProps>`
   font-size: ${RFValue(24)}px;
-  ${({ type }) =>
-    type === "up" &&
-    css`
-      color: ${({ theme }) => theme.colors.green};
-    `}
-  ${({ type }) =>
-    type === "down" &&
-    css`
-      color: ${({ theme }) => theme.colors.red};
-    `}
+  color: ${({ theme, type }) => type === 'up' ? theme.colors.green : theme.colors.red};
   margin-right: 12px;
   ${({ type, isActive }) =>
     !isActive &&
