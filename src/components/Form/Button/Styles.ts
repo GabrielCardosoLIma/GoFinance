@@ -3,7 +3,7 @@ import { Feather } from "@expo/vector-icons";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { TextInput } from "react-native";
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   width: 100%;
   padding: 18px;
   background-color: ${({ theme }) => theme.colors.orange};
