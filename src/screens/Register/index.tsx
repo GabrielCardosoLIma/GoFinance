@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal } from "react-native";
+import { Modal, Alert } from "react-native";
 import {
   Container,
   Header,
@@ -15,11 +15,22 @@ import { CategorySelect } from "../CategorySelect";
 import { Input } from "../../components/Form/Input/index";
 import { InputForm } from "../../components/Form/InputForm";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 interface FormData {
   name: string;
   amount: string;
 }
+
+const schema = Yup.object().shape({
+  name: Yup.string().required("Nome é obrigatório"),
+  amount: Yup.number()
+    .transform((_value, originalValue) => Number(originalValue.replace(/,/,'.')))
+    .typeError("Informe um valor numérico")
+    .positive("O valor não pode ser negativo")
+    .required("O valor é obrigatório"),
+});
 
 export function Register() {
   const [transactionType, setTransactionType] = useState("");
@@ -30,10 +41,9 @@ export function Register() {
     name: "categoria",
   });
 
-  const {
-    control,
-    handleSubmit,
-  } = useForm();
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   function handleOpenSelectCategoryModal() {
     setCategoryModalOpen(true);
@@ -47,13 +57,16 @@ export function Register() {
     setTransactionType(type);
   }
 
-  function handleRegister(form: FormData){
+  function handleRegister(form: FormData) {
+    if (!transactionType) return Alert.alert("Selecione o tipo de transação!");
+    if (Category.key === "category")
+      return Alert.alert("Selecione a categoria!");
     const data = {
       name: form.name,
       amount: form.amount,
       transactionType,
-      category: Category.key
-    }
+      category: Category.key,
+    };
     console.log(data);
   }
 
@@ -64,8 +77,21 @@ export function Register() {
       </Header>
       <Form>
         <Fields>
-          <InputForm control={control} name="name" placeholder="Nome" />
-          <InputForm control={control} name="amount" placeholder="Preço" />
+          <InputForm
+            control={control}
+            name="name"
+            placeholder="Nome"
+            autoCapitalize="words"
+            autoCorrect={false}
+            error={errors.name && errors.name.message}
+          />
+          <InputForm
+            control={control}
+            name="amount"
+            placeholder="Preço"
+            keyboardType="numeric"
+            error={errors.amount && errors.amount.message}
+          />
           <TransactionTypes>
             <TransactionTypeButton
               title="Income"
