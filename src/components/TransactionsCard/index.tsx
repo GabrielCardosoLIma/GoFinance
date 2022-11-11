@@ -13,15 +13,15 @@ import {
 
 export interface TransactionCardProps{
   type: 'positive' | 'negative';
-  title: String;
-  amount: String;
-  category: Category;
-  date: String;
+  name: string;
+  amount: string;
+  category: string;
+  date: string;
 }
 
 export interface Category{
-  name: String;
-  icon: String;
+  name: string;
+  icon: string;
 }
 
 interface Props {
