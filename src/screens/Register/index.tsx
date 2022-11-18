@@ -12,7 +12,6 @@ import { Button } from "../../components/Form/Button";
 import { CategorySelectButton } from "../../components/Form/CategorySelect";
 import { TransactionTypeButton } from "../../components/TransactionTypeButton/index";
 import { CategorySelect } from "../CategorySelect";
-import { Input } from "../../components/Form/Input/index";
 import { InputForm } from "../../components/Form/InputForm";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -67,7 +66,7 @@ export function Register() {
     setCategoryModalOpen(false);
   }
 
-  function handleTransactionsTypeSelect(type: "up" | "down") {
+  function handleTransactionsTypeSelect(type: "positive" | "negative") {
     setTransactionType(type);
   }
 
@@ -79,7 +78,7 @@ export function Register() {
       id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
-      transactionType,
+      type: transactionType,
       category: Category.key,
       date: new Date()
     };
@@ -145,14 +144,14 @@ export function Register() {
               <TransactionTypeButton
                 title="Income"
                 type="up"
-                onPress={() => handleTransactionsTypeSelect("up")}
-                isActive={transactionType === "up"}
+                onPress={() => handleTransactionsTypeSelect("positive")}
+                isActive={transactionType === "positive"}
               />
               <TransactionTypeButton
                 title="Outcome"
                 type="down"
-                onPress={() => handleTransactionsTypeSelect("down")}
-                isActive={transactionType === "down"}
+                onPress={() => handleTransactionsTypeSelect("negative")}
+                isActive={transactionType === "negative"}
               />
             </TransactionTypes>
             <CategorySelectButton
