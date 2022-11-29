@@ -5,6 +5,18 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#5e17eb"
+      },
+      "package": "GoFinances.com"
+    },
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#5e17eb",
+      "resizeMode": "cover"
+    }
   }
 }
