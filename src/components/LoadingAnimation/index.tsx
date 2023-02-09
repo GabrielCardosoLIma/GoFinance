@@ -6,7 +6,7 @@ export function LoadingAnimation() {
   return (
     <Container>
       <LottieView
-        source={require("../../assets/pie-chart.json")}
+        source={require("../../assets/spinning-pie-chart.json")}
         loop
         autoPlay
         resizeMode="contain"
