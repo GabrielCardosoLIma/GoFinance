@@ -3,7 +3,8 @@ import { ThemeProvider } from "styled-components/native";
 import * as SplashScreen from "expo-splash-screen";
 import theme from "./src/global/Styles/theme";
 import { NavigationContainer } from "@react-navigation/native";
-import { AppRoutes } from "./src/routes/app.routes";
+// import { AppRoutes } from "./src/routes/app.routes";
+import { AuthProvider } from "./src/hooks/auth";
 import "intl";
 import "intl/locale-data/jsonp/pt-BR";
 import {
@@ -29,8 +30,9 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        {/* <AppRoutes /> */}
-        <SignIn />
+        <AuthProvider>
+          <SignIn />
+        </AuthProvider>
       </NavigationContainer>
     </ThemeProvider>
   );

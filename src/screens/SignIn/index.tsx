@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useContext } from 'react';
 import { Platform } from 'react-native';
 import { 
     Container,
@@ -26,8 +26,13 @@ import Google from '../../assets/svg/google.svg';
 import Apple from '../../assets/svg/apple.svg';
 
 import { SignInSocialButton } from '../../components/SignInSocialButton';
+import { useAuth } from '../../hooks/auth';
 
 export function SignIn(){
+    const data = useAuth();
+    console.log(data);
+
+
     // const [isLoading, setIsLoading] = useState(false);
     // const { signInWithGoogle, signInWithApple } = useAuth();
 
