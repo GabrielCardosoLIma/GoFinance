@@ -1,15 +1,15 @@
-import React, { useCallback, useState, useContext } from 'react';
-import { Platform } from 'react-native';
-import { 
-    Container,
-    Header,
-    Title,
-    TitleWrapper,
-    SignInTitle,
-    Footer,
-    FooterWrapper,
-    Load
-} from './styles';
+import React, { useCallback, useState, useContext } from "react";
+import { Alert, Platform } from "react-native";
+import {
+  Container,
+  Header,
+  Title,
+  TitleWrapper,
+  SignInTitle,
+  Footer,
+  FooterWrapper,
+  Load,
+} from "./styles";
 
 import { RFPercentage } from "react-native-responsive-fontsize";
 
@@ -21,69 +21,78 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 // 1 tipar os arquivos .svg
 // criar pasta @types/svg
 // 2 criar o component /components/SignInSocialButton
-import Logo from '../../assets/svg/logo.svg';
-import Google from '../../assets/svg/google.svg';
-import Apple from '../../assets/svg/apple.svg';
+import Logo from "../../assets/svg/logo.svg";
+import Google from "../../assets/svg/google.svg";
+import Apple from "../../assets/svg/apple.svg";
 
-import { SignInSocialButton } from '../../components/SignInSocialButton';
-import { useAuth } from '../../hooks/auth';
+import { SignInSocialButton } from "../../components/SignInSocialButton";
+import { useAuth } from "../../hooks/auth";
 
-export function SignIn(){
-    const data = useAuth();
-    console.log(data);
+export function SignIn() {
+  const { signInWithGoogle } = useAuth();
 
+  async function handleSignInWithGoogle() {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Não foi possível se conectar a conta do Google");
+    }
+  }
 
-    // const [isLoading, setIsLoading] = useState(false);
-    // const { signInWithGoogle, signInWithApple } = useAuth();
+  const data = useAuth();
+  console.log(data);
 
-    // const hanleSignInWithGoogle = useCallback(async () => {
-    //     setIsLoading(true);
-    //     try {
-    //         await signInWithGoogle();
-    //     } catch (error) {
-    //         console.log(error);
-    //     }    
-    // }, [setIsLoading]);  
+  // const [isLoading, setIsLoading] = useState(false);
+  // const { signInWithGoogle, signInWithApple } = useAuth();
 
-    return (
-        <Container>
-            <Header>    
-                <TitleWrapper>                            
-                <Logo width={RFPercentage(20)}/>
+  // const hanleSignInWithGoogle = useCallback(async () => {
+  //     setIsLoading(true);
+  //     try {
+  //         await signInWithGoogle();
+  //     } catch (error) {
+  //         console.log(error);
+  //     }
+  // }, [setIsLoading]);
 
-                <Title>
-                    Controle suas {'\n'}
-                    finanças de forma {'\n'}
-                    muito simples
-                </Title>  
-                </TitleWrapper>
+  return (
+    <Container>
+      <Header>
+        <TitleWrapper>
+          <Logo width={RFPercentage(20)} />
 
-                <SignInTitle>
-                    Faça seu login com {'\n'}
-                    uma das contas abaixo
-                </SignInTitle>                           
-            </Header>
+          <Title>
+            Controle suas {"\n"}
+            finanças de forma {"\n"}
+            muito simples
+          </Title>
+        </TitleWrapper>
 
-            <Footer>
-                <FooterWrapper>                  
-                    <SignInSocialButton 
-                        title="Entrar com Google" 
-                        svg={Google}
-                        onPress={() => { }}
-                    />  
+        <SignInTitle>
+          Faça seu login com {"\n"}
+          uma das contas abaixo
+        </SignInTitle>
+      </Header>
 
-                    {
-                        Platform.OS === 'ios' &&
-                        <SignInSocialButton 
-                            title="Entrar com Apple" 
-                            svg={Apple}
-                            onPress={() => { }}
-                        />                
-                    }
-                </FooterWrapper>
+      <Footer>
+        <FooterWrapper>
+          <SignInSocialButton
+            title="Entrar com Google"
+            svg={Google}
+            onPress={handleSignInWithGoogle}
+          />
 
-               {/* { isLoading && <Load/> } */}
-            </Footer>          
-        </Container>
-    )
+          {Platform.OS === "ios" && (
+            <SignInSocialButton
+              title="Entrar com Apple"
+              svg={Apple}
+              onPress={() => {}}
+            />
+          )}
+        </FooterWrapper>
+
+        {/* { isLoading && <Load/> } */}
+      </Footer>
+    </Container>
+  );
 }
