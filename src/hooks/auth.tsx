@@ -46,32 +46,32 @@ function AuthProvider({ children }: AuthProviderProps) {
       const response_type = "token";
       const scope = encodeURI("profile email");
       const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirect_uri}&response_type=${response_type}&scope=${scope}`;
-      // const { type, params } = (await authSession.startAsync({
-      //   authUrl,
-      // })) as AuthorizationResponse;
+      const { type, params } = (await AuthSession.startAsync({
+        authUrl,
+      })) as AuthorizationResponse;
 
-      const response = await AuthSession.startAsync({ authUrl });
+      // const response = await AuthSession.startAsync({ authUrl });
 
-      console.log(response);
+      // console.log(response);
 
 
       // console.log(response.type);
       // console.log(response.params.access_token);
 
-      // if (type === "success") {
-      //   const response = await fetch(
-      //     `https://googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`
-      //     );
+      if (type === "success") {
+        const response = await fetch(
+          `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`
+          );
 
-      //   // const userInfo = await response.json();
-      //   // console.log(userInfo);
-      //   // setUser({
-      //   //   id: userInfo.id,
-      //   //   email: userInfo.email,
-      //   //   name: userInfo.name,
-      //   //   photo: userInfo.picture,
-      //   // });
-      // }
+        const userInfo = await response.json();
+        console.log(userInfo);
+        setUser({
+          id: userInfo.id,
+          email: userInfo.email,
+          name: userInfo.name,
+          photo: userInfo.picture,
+        });
+      }
 
       await AsyncStorage.setItem("@gofinances:user", JSON.stringify(user));
     } catch (error) {
