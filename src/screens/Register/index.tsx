@@ -17,8 +17,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import uuid from 'react-native-uuid';
-import { useNavigation, NavigationProp, ParamListBase } from "@react-navigation/native";
+import uuid from "react-native-uuid";
+import {
+  useNavigation,
+  NavigationProp,
+  ParamListBase,
+} from "@react-navigation/native";
+import { useAuth } from "../../hooks/auth";
 
 interface FormData {
   name: string;
@@ -39,13 +44,14 @@ const schema = Yup.object().shape({
 export function Register() {
   const [transactionType, setTransactionType] = useState("");
   const [CategoryModalOpen, setCategoryModalOpen] = useState(false);
+  const { user } = useAuth();
 
   const [Category, setCategory] = useState({
     key: "category",
     name: "categoria",
   });
 
-  const dataKey = "@gofinances:transactions";
+  const dataKey = `@gofinances_@user:${user.id}:moviments`;
 
   const { navigate }: NavigationProp<ParamListBase> = useNavigation();
 
@@ -80,24 +86,21 @@ export function Register() {
       amount: form.amount,
       type: transactionType,
       category: Category.key,
-      date: new Date()
+      date: new Date(),
     };
     console.log(newTransaction);
     try {
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
-      const dataFormated = [
-        ...currentData,
-        newTransaction,
-      ];
+      const dataFormated = [...currentData, newTransaction];
       await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormated));
       reset();
-      setTransactionType('');
+      setTransactionType("");
       setCategory({
         key: "category",
         name: "categoria",
-      })
-      navigate('Listagem');
+      });
+      navigate("Listagem");
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possivel salvar");

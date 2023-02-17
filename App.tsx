@@ -14,6 +14,7 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import { SignIn } from "./src/screens/SignIn";
+import { Routes } from "./src/routes";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -29,11 +30,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <AuthProvider>
-          <SignIn />
-        </AuthProvider>
-      </NavigationContainer>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
